@@ -20,7 +20,7 @@ namespace DeltaTimeCsharp
         {
             var discord = new DiscordClient(new DiscordConfiguration()
             {
-                Token = "env",
+                Token = "YourToken",
                 TokenType = TokenType.Bot,
             });
 

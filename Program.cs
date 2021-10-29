@@ -5,6 +5,7 @@ using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using DSharpPlus;
+using DSharpPlus.Entities;
 
 namespace DeltaTimeCsharp
 {
@@ -20,8 +21,9 @@ namespace DeltaTimeCsharp
             var discord = new DiscordClient(new DiscordConfiguration()
             {
                 Token = "env",
-                TokenType = TokenType.Bot
+                TokenType = TokenType.Bot,
             });
+
 
             discord.MessageCreated += async (s, e) =>
             {
@@ -31,6 +33,10 @@ namespace DeltaTimeCsharp
                     await e.Message.RespondAsync(CurrentTime());
                 if (e.Message.Content.ToLower().StartsWith("rozvrh"))
                     await e.Message.RespondAsync(Subjects());
+                if (e.Message.Content.ToLower().StartsWith("about"))
+                    await e.Message.RespondAsync("Jsem discordový bot inspirovaný mobilní aplikací Delta Time. Zobrazuji informace o probíhajících událostech týkající se našeho rozvrhu. Všechen kód můžete naleznout v tomto repozitáři: *https://github.com/ZirixCZ/DeltaTime-Discord*\n*S pozdravem, Michal.*");
+                if (e.Message.Content.ToLower().StartsWith("!pomoc"))
+                    await e.Message.RespondAsync("**info** pro zobrazení informací o probíhajících a nastávajících událostech.\n**rozvrh** pro zobrazení dnešního rozvrhu.\n**about** zobrazí informace o botovi.\n**!pomoc** pro zobrazení nápovědy.");
             };
             // waiting to be ended
             await discord.ConnectAsync();
@@ -46,11 +52,11 @@ namespace DeltaTimeCsharp
             else if (weekDay == DayOfWeek.Tuesday)
                 subjectList = $"{subjects[5]}, {subjects[5]}, {subjects[6]}, {subjects[0]}, {subjects[1]}, {subjects[7]}";
             else if (weekDay == DayOfWeek.Wednesday)
-                subjectList = $"{subjects[1]}, {subjects[7]}, {subjects[0]}, {subjects[4]}, {subjects[8]}, {subjects[8]}, {subjects[11]}, {subjects[9]}, {subjects[9]},";
+                subjectList = $"**První skupina**: {subjects[1]}, {subjects[7]}, {subjects[0]}, {subjects[8]}, {subjects[8]}, {subjects[4]}, {subjects[11]}, {subjects[9]}, {subjects[9]}\n**Druhá Skupina**: {subjects[1]}, {subjects[7]}, {subjects[0]}, {subjects[4]}, {subjects[8]}, {subjects[8]}, {subjects[11]}, {subjects[9]}, {subjects[9]}";
             else if (weekDay == DayOfWeek.Thursday)
-                subjectList = $"{subjects[2]}, {subjects[6]}, {subjects[6]}, {subjects[8]}, {subjects[8]}, {subjects[4]}, {subjects[11]}, {subjects[0]}";
+                subjectList = $"**První skupina**: {subjects[2]}, {subjects[6]}, {subjects[6]}, {subjects[4]}, {subjects[10]}, {subjects[10]}, {subjects[11]}, {subjects[0]}\n**Druhá Skupina**: {subjects[2]}, {subjects[6]}, {subjects[6]}, {subjects[8]}, {subjects[8]}, {subjects[4]}, {subjects[11]}, {subjects[0]}";
             else if (weekDay == DayOfWeek.Friday)
-                subjectList = $"{subjects[0]}, {subjects[3]}, {subjects[7]}, {subjects[4]}, {subjects[10]}, {subjects[10]}";
+                subjectList = $"**První skupina**: {subjects[0]}, {subjects[3]}, {subjects[7]}, {subjects[8]}, {subjects[8]}\n**Druhá Skupina**: {subjects[0]}, {subjects[3]}, {subjects[7]}, {subjects[4]}, {subjects[10]}, {subjects[10]}";
             else if (weekDay == DayOfWeek.Saturday)
                 subjectList = "Dneska není škola";
             else if (weekDay == DayOfWeek.Sunday)
@@ -62,7 +68,7 @@ namespace DeltaTimeCsharp
         static string CurrentTime()
         {
             string CurrentTime;
-            bool ShortestBreak, ShortBreak, MediumBreak, FirstLesson, SecondLesson, ThirdLesson, FourthLesson, FifthLesson, SixthLesson, SeventhLesson, EightLesson, NinethLesson, CustomLesson;
+            bool ShortestBreak, ShortBreak, MediumBreak, FirstLesson, SecondLesson, ThirdLesson, FourthLesson, FifthLesson, SixthLesson, SeventhLesson, EightLesson, NinethLesson;
             ShortestBreak = ShortBreak = MediumBreak = FirstLesson = SecondLesson = ThirdLesson = FourthLesson = FifthLesson = SixthLesson = SeventhLesson = EightLesson = NinethLesson = false;
             
             if (isbetween(8,00,8,45))
@@ -95,69 +101,66 @@ namespace DeltaTimeCsharp
                 EightLesson = true;
             else if (isbetween(14,45,15,30))
                 NinethLesson = true;
-            else if (isbetween(16,50,18,10))
-                CustomLesson = true;
-            
+
             // breaks
             if (ShortestBreak)
                 CurrentTime = "5 minutovka";
-            if (ShortBreak)
+            else if (ShortBreak)
                 CurrentTime = "10 minutovka";
-            if (MediumBreak)
+            else if (MediumBreak)
                 CurrentTime = "15 minutovka";
             // lessons
             
             // if it is 8:00 or greater, this code shall execute
-            if (FirstLesson)
+            else if (FirstLesson)
             {
                 var CurrentLessonInt = CustomTime(8,45,0);
                 CurrentTime = CurrentLessonInt.ToString(@"hh\:mm\:ss") + " do konce první hodiny.";;
             }
              // if it is 8:50 or greater, this code shall execute
-            if (SecondLesson)
+            else if (SecondLesson)
             {
                 var CurrentLessonInt = CustomTime(9,35,0);
                 CurrentTime = CurrentLessonInt.ToString(@"hh\:mm\:ss") + " do konce druhé hodiny.";
             }
-            if (ThirdLesson)
+            else if (ThirdLesson)
             {
                 var CurrentLessonInt = CustomTime(10,35,0);
                 CurrentTime = CurrentLessonInt.ToString(@"hh\:mm\:ss") + " do konce třetí hodiny.";
             }
-            if (FourthLesson)
+            else if (FourthLesson)
             {
                 var CurrentLessonInt = CustomTime(11,25,0);
                 CurrentTime = CurrentLessonInt.ToString(@"hh\:mm\:ss") + " do konce čtvrté hodiny.";
             }
-            if (FifthLesson)
+            else if (FifthLesson)
             {
                 var CurrentLessonInt = CustomTime(12,20,0);
                 CurrentTime = CurrentLessonInt.ToString(@"hh\:mm\:ss") + " do konce páté hodiny.";
             }
-            if (SixthLesson)
+            else if (SixthLesson)
             {
                 var CurrentLessonInt = CustomTime(13,10,0);
                 CurrentTime = CurrentLessonInt.ToString(@"hh\:mm\:ss") + " do konce šesté hodiny.";
             }
-            if (SeventhLesson)
+            else if (SeventhLesson)
             {
                 var CurrentLessonInt = CustomTime(14,00,0);
-                CurrentTime = CurrentLessonInt.ToString(@"hh\:mm\:ss") + " do konce sedmé hodiny.";
+                CurrentTime = "Volná hodina končí za " + CurrentLessonInt.ToString(@"hh\:mm\:ss");
             }
-            if (EightLesson)
+            else if (EightLesson)
             {
                 var CurrentLessonInt = CustomTime(14,45,0);
                 CurrentTime = CurrentLessonInt.ToString(@"hh\:mm\:ss") + " do konce osmé hodiny.";
             }
-            if (NinethLesson)
+            else if (NinethLesson)
             {
                 var CurrentLessonInt = CustomTime(15,30,0);
                 CurrentTime = CurrentLessonInt.ToString(@"hh\:mm\:ss") + " do konce deváté hodiny.";
             }
             else
             {
-                var CurrentLessonInt = CustomTime(8,0,0);
-                CurrentTime = CurrentLessonInt.ToString(@"hh\:mm\:ss") + " do začátku školy. (rozbité)";
+                CurrentTime = "Škola právě neprobíhá.";
             }
 
                 return CurrentTime;

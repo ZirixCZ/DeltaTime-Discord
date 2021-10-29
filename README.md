@@ -2,6 +2,7 @@
 <p align="center">
   
   ### 💻 Self-Hosting
+  ```Open by double clicking the DeltaTimeCsharp.csproj file```
 - Make sure you've got .Net 5 installed on your machine. You can get it here https://dotnet.microsoft.com/download/dotnet/5.0
 - Change the timetable to fit your own
 > ⚙️ Program.cs

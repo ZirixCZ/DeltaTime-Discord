@@ -4475,11 +4475,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\thinkpad\\Documents\\.PROGRAMMING\\C#\\DeltaTimeCsharp\\DeltaTimeCsharp\\DeltaTimeCsharp.csproj",
+      "projectUniqueName": "C:\\Users\\thinkpad\\Documents\\GitHub\\DeltaTime-Discord\\DeltaTimeCsharp.csproj",
       "projectName": "DeltaTimeCsharp",
-      "projectPath": "C:\\Users\\thinkpad\\Documents\\.PROGRAMMING\\C#\\DeltaTimeCsharp\\DeltaTimeCsharp\\DeltaTimeCsharp.csproj",
+      "projectPath": "C:\\Users\\thinkpad\\Documents\\GitHub\\DeltaTime-Discord\\DeltaTimeCsharp.csproj",
       "packagesPath": "C:\\Users\\thinkpad\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\thinkpad\\Documents\\.PROGRAMMING\\C#\\DeltaTimeCsharp\\DeltaTimeCsharp\\obj\\",
+      "outputPath": "C:\\Users\\thinkpad\\Documents\\GitHub\\DeltaTime-Discord\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\thinkpad\\AppData\\Roaming\\NuGet\\NuGet.Config"

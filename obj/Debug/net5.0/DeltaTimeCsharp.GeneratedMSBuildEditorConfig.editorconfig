@@ -7,4 +7,4 @@ build_property.PublishSingleFile =
 build_property.IncludeAllContentForSelfExtract = 
 build_property._SupportedPlatformList = Android,iOS,Linux,macOS,Windows
 build_property.RootNamespace = DeltaTimeCsharp
-build_property.ProjectDir = C:\Users\thinkpad\Documents\.PROGRAMMING\C#\DeltaTimeCsharp\DeltaTimeCsharp\
+build_property.ProjectDir = C:\Users\thinkpad\Documents\GitHub\DeltaTime-Discord\

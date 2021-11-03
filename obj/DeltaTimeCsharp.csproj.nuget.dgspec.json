@@ -45,6 +45,10 @@
             "System.Configuration.ConfigurationManager": {
               "target": "Package",
               "version": "[6.0.0-rc.2.21480.5, )"
+            },
+            "dotenv.net": {
+              "target": "Package",
+              "version": "[3.1.1, )"
             }
           },
           "imports": [

@@ -1,26 +1,35 @@
 ﻿using System;
 using System.Configuration;
 using System.Collections.Specialized;
+using System.IO;
 using System.Net.Http.Headers;
+using System.Net.NetworkInformation;
+using System.Runtime;
 using System.Threading;
 using System.Threading.Tasks;
 using DSharpPlus;
 using DSharpPlus.Entities;
+using dotenv.net.Utilities;
+using dotenv.net;
 
 namespace DeltaTimeCsharp
 {
     class Program
     {
+        public static string ThisToken { get; set; }
         static void Main(string[] args)
         {
+            DotEnv.Load();
+            var value = EnvReader.GetStringValue("TOKEN");
+            ThisToken = value;
             MainAsync().GetAwaiter().GetResult();
         }
-
         static async Task MainAsync()
         {
+            Random r = new Random();
             var discord = new DiscordClient(new DiscordConfiguration()
             {
-                Token = "YourToken",
+                Token = ThisToken,
                 TokenType = TokenType.Bot,
             });
 
@@ -33,8 +42,12 @@ namespace DeltaTimeCsharp
                     await e.Message.RespondAsync(CurrentTime());
                 if (e.Message.Content.ToLower().StartsWith("rozvrh"))
                     await e.Message.RespondAsync(Subjects());
+                if (e.Message.Content.ToLower().StartsWith("kaneki"))
+                    await e.Message.RespondAsync("https://cdn.discordapp.com/attachments/810500215005773834/903936765197430794/zirgifkaneki.gif");
                 if (e.Message.Content.ToLower().StartsWith("about"))
                     await e.Message.RespondAsync("Jsem discordový bot inspirovaný mobilní aplikací Delta Time. Zobrazuji informace o probíhajících událostech týkající se našeho rozvrhu. Všechen kód můžete naleznout v tomto repozitáři: *https://github.com/ZirixCZ/DeltaTime-Discord*\n*S pozdravem, Michal.*");
+                // if (e.Message.Content.ToLower().StartsWith("ping"))
+                //     await e.Message.RespondAsync(Ping());
                 if (e.Message.Content.ToLower().StartsWith("!pomoc"))
                     await e.Message.RespondAsync("**info** pro zobrazení informací o probíhajících a nastávajících událostech.\n**rozvrh** pro zobrazení dnešního rozvrhu.\n**about** zobrazí informace o botovi.\n**!pomoc** pro zobrazení nápovědy.");
             };
@@ -42,13 +55,15 @@ namespace DeltaTimeCsharp
             await discord.ConnectAsync();
             await Task.Delay(-1);
         }
+
+        // public int Ping { get; }
         private static string Subjects()
         {
             string[] subjects = {"MA","DJ","PK","CH","AJ","PS","VT","ČJ","PR","TV","PF","pauza"};
             var weekDay = DateTime.Now.DayOfWeek;
             string subjectList;
             if (weekDay == DayOfWeek.Monday)
-                subjectList = $"{subjects[1]}, {subjects[0]}, {subjects[2]}, {subjects[3]}, {subjects[11]}, {subjects[4]}";
+                subjectList = $"**První skupina**: {subjects[1]}, {subjects[0]}, {subjects[2]}, {subjects[3]}, {subjects[4]}\n**Druhá Skupina**: {subjects[1]}, {subjects[0]}, {subjects[2]}, {subjects[3]}, {subjects[11]}, {subjects[4]}";
             else if (weekDay == DayOfWeek.Tuesday)
                 subjectList = $"{subjects[5]}, {subjects[5]}, {subjects[6]}, {subjects[0]}, {subjects[1]}, {subjects[7]}";
             else if (weekDay == DayOfWeek.Wednesday)
@@ -74,7 +89,7 @@ namespace DeltaTimeCsharp
             if (isbetween(8,00,8,45))
                 FirstLesson = true;
             // checking, if the time is 8:45 or greater
-            else if (isbetween(8,45,9,50))
+            else if (isbetween(8,45,8,50))
                 ShortestBreak = true;
             // checking, if the time is 8:50 or greater
             else if (isbetween(8,50,9,35))
@@ -176,6 +191,11 @@ namespace DeltaTimeCsharp
             var theActualDate = DateTime.Today + timeToCheck;
 
             return theActualDate - DateTime.Now;
+        }
+
+        private static int RandomString(Random r)
+        {
+            return r.Next(0,3);
         }
     }
 }

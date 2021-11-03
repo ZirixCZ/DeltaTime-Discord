@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "PdZ1bCvTBFFr73QbBHtZ0Bi9Y3dqwvL5fKf/OjZE2HarVm3ljWBThLs1H5ewfb7L7LAs5GIh8ck24thXJxRGtw==",
+  "dgSpecHash": "BnO4aKJxS6MiIeScpcHnU73hfYO82YJINxxlRns4hs5HxPCvt4yPLUhNkvpeTrR2g7JM6GL6P8P7hY5/tTQ4ig==",
   "success": true,
   "projectFilePath": "C:\\Users\\thinkpad\\Documents\\GitHub\\DeltaTime-Discord\\DeltaTimeCsharp.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\thinkpad\\.nuget\\packages\\dotenv.net\\3.1.1\\dotenv.net.3.1.1.nupkg.sha512",
     "C:\\Users\\thinkpad\\.nuget\\packages\\dsharpplus\\4.1.0\\dsharpplus.4.1.0.nupkg.sha512",
     "C:\\Users\\thinkpad\\.nuget\\packages\\emzi0767.common\\2.6.2\\emzi0767.common.2.6.2.nupkg.sha512",
     "C:\\Users\\thinkpad\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\5.0.0\\microsoft.extensions.logging.abstractions.5.0.0.nupkg.sha512",
